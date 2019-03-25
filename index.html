@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <h1 id="h1">Your Cat</h1>
+        <img id="cat" src="3.jpg" style="width:100px;position:absolute;left:0px;"/>
+        <div style="width:250px;height:8px;background-color:rgba(0,0,0,0.5);position:absolute;left: 10px;top:145px;"></div>
+        <script>
+            const ms = 300;
+            let index = 0;
+            const images = '3,4,5,4'.split(',').map(x => `${x}c.jpg`);
+            const catElement = document.getElementById('cat');
+            const titleElement = document.getElementById('h1');
+            let px = 0;
+            (function animate() {
+                const imgSrc = images[index];
+                catElement.src = imgSrc;
+                // titleElement.innerHTML = `Cat :D ${imgSrc}`;
+                index += 1;
+                index %= images.length;
+                setTimeout(animate, ms);
+            })();
+            let dir = 1;
+            (function walk() {
+                catElement.style.left = `${px}px`;
+                px += dir * 2;
+                if (dir === -1 && px < 20) { 
+                    dir = 1;
+                    catElement.style.transform = 'rotateY(0deg)';
+                }
+                if (dir === 1 && px > 180) {
+                    dir = -1;
+                    catElement.style.transform = 'rotateY(180deg)';
+
+                } 
+                
+                setTimeout(walk, 100);
+            })();
+        </script>
+    </body>
+</html>
